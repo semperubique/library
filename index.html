@@ -6,17 +6,33 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Library</title>
     <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <script src="script.js" defer></script>
   </head>
   <body>
+    <div class="modal">
+      <form action="#" autocomplete="off" onsubmit=this.reset()>
+        <button type="button" id="close-form"><span class="material-icons">close</span></button>
+        <label for="name">Book name</label>
+        <input type="text" id="name" name="name" placeholder="Book name.." required>
+    
+        <label for="author">Author name</label>
+        <input type="text" id="author" name="author" placeholder="Author Name.." required>
+
+        <label for="year">Publishing year</label>
+        <input type="text" id="year" name="year" placeholder="Year.." required>
+        
+        <button type="submit" id="submit-book" class="material-icons">add</button>
+      </form>
+    </div>
     <header>
       <h1>My library</h1>
     </header>
     <main>
+        <button type="button" class="material-icons" id="new_book">add</button>
       <div class="card-wrapper">
 
       </div>
-
     </main>
   </body>
 </html>
