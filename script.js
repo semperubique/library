@@ -4,7 +4,6 @@ const form = document.querySelector(".modal");
 const closeForm = document.querySelector('#close-form');
 const submitBook = document.querySelector('#submit-book');
 
-
 let myLibrary = [];
 
 function Book(name, author, year) {
@@ -26,6 +25,7 @@ function displayLibraryOnScreen() {
         `<h3>${book.name}</h3>
         <span>By: ${book.author}</span>
         <span>Published: ${book.year}</span>
+        <button class="material-icons delete-book" style="background: none; border: none;" id="${book.name}">delete</button>
         `;
         cardWrapper.appendChild(card);
     })
@@ -35,8 +35,9 @@ function newBookForm() {
     form.classList.add('active');
 }
 
+addBookToLibrary("Murad","Jale", 1972);
+displayLibraryOnScreen();
 
-displayLibraryOnScreen(); // test to see if it works always after adding a new book
 
 
 newBook.addEventListener('click', () => newBookForm());
@@ -48,6 +49,17 @@ closeForm.addEventListener('click', () => {
 submitBook.addEventListener('click', () => {
     addBookToLibrary(document.querySelector('#name').value, document.querySelector('#author').value, document.querySelector('#year').value);
     form.classList.remove('active');
-    displayLibraryOnScreen()
+    displayLibraryOnScreen();
+    deleteBookFunc();
 });
 
+function deleteBookFunc() {
+    let deleteBook = document.querySelectorAll('.delete-book');
+    deleteBook.forEach(button => button.addEventListener("click", (e) => {
+        const indexOfBookInArray = myLibrary.findIndex(object => {return object.name === e.target.id});
+        myLibrary.splice(indexOfBookInArray, 1);
+        displayLibraryOnScreen();
+    }));
+}
+
+deleteBookFunc();
