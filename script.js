@@ -1,6 +1,3 @@
-const form = document.querySelector(".modal");
-
-
 const Book = (name, author, year) => {
     return {name, author, year};
 }
@@ -17,67 +14,68 @@ const libraryUX = (() => {
         myLibrary.splice(indexOfBookInArray, 1);
     };
 
-    const displayBooks = () => {
-        const cardWrapper = document.querySelector(".card-wrapper");
-        cardWrapper.textContent = "";
+    const openForm = (form) => {
+        form.classList.add('active');    
+    };
+    const closeForm = (form) => {
+        form.classList.remove('active');
+    };
+
+    const updateLibrary = (bookCardContainer) => {
+        bookCardContainer.textContent = "";
         myLibrary.forEach(function(book) {
-            let bookCard = document.createElement('div');
+            const bookCard = document.createElement('div');
             bookCard.classList.add('card');
             bookCard.innerHTML = 
             `<h3>${book.name}</h3>
             <span>By: ${book.author}</span>
             <span>Published: ${book.year}</span>
-            <button class="material-icons delete-book" style="background: none; border: none;" id="${book.name}">delete</button>
+            <button class="material-icons delete-book" type="button" style="background: none; border: none;" id="${book.name}">delete</button>
             `;
-            cardWrapper.appendChild(bookCard);
+            bookCardContainer.appendChild(bookCard);
         });
-    };
+        const removeBookButtons = document.querySelectorAll('.delete-book');
+        removeBookButtons.forEach(removeBookButton => {
+            removeBookButton.addEventListener("click", (e) => {
+                removeBook(e.target.id);
+                updateLibrary(bookCardContainer);
+        })
+        });
 
-    const openForm = () => {
-        form.classList.add('active');    
-    };
-    const closeForm = () => {
-        form.classList.remove('active');
     };
 
     return {
         addBook, 
         removeBook,
-        displayBooks,
         openForm, 
-        closeForm
+        closeForm,
+        updateLibrary
     };
 })();
 
 const libraryUI = (() => {
-    libraryUX.displayBooks();
+    const cardWrapper = document.querySelector(".card-wrapper");
+
+    const form = document.querySelector(".modal");
 
     const openFormButton = document.querySelector('#open_form_button');
     openFormButton.addEventListener('click', () => {
-        libraryUX.openForm();
+        libraryUX.openForm(form);
     });
 
     const closeFormButton = document.querySelector('#close-form');
     closeFormButton.addEventListener('click', () => { 
-        libraryUX.closeForm();
+        libraryUX.closeForm(form);
     });
 
     const submitBookButton = document.querySelector('#submit-book');
     submitBookButton.addEventListener('click', () => {
         libraryUX.addBook(document.querySelector('#name').value, document.querySelector('#author').value, document.querySelector('#year').value);
-        libraryUX.closeForm();
-        libraryUX.displayBooks();
+        libraryUX.closeForm(form);
+        libraryUX.updateLibrary(cardWrapper);
     });
 
-    const removeBookButtons = document.querySelectorAll('.delete-book');
-    removeBookButtons.forEach(removeBookButton => removeBookButton.addEventListener("click", (e) => {
-        libraryUX.removeBook(e.target.id);
-        libraryUX.displayBooks();
-    }));
-
-    return {
-
-    };
+    return {};
 })();
 
 
