@@ -22,7 +22,7 @@ main {
   padding: 50px;
 }
 
-#new_book {
+#open_form_button {
   position: fixed;
   bottom: 5%;
   right: 5%;
@@ -32,7 +32,7 @@ main {
   font-size: 2rem;
 }
 
-#new_book:hover {
+#open_form_button:hover {
   font-size: 3rem;
   text-align: center;
 }
@@ -106,3 +106,4 @@ form {
 #close-form:hover {
   background-color: rgba(255, 0, 0, 0.342);
 }
+
